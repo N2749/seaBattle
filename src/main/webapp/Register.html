@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Register</title>
+<style>
+html, body {
+	height: 100%;
+	margin: 0;
+}
+
+body {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+form {
+	border: 2px solid black;
+	padding: 2rem;
+}
+
+.submit {
+	display: block;
+	margin: 1rem auto;
+	padding: 0.2rem;
+}
+</style>
+</head>
+<body>
+	<form id="form" action="register" method="post">
+		<label for="userName">user name</label> <br> <input type="text"
+			name="userName" placeholder="Cool_Dude" required="required"> <br>
+		<label for="password">password</label> <br> <input
+			type="password" name="password" placeholder="********" id="password"
+			required="required" onchange="this.setCustomValidity('')"> <br>
+		<label for="password2">repeat password</label> <br> <input
+			id="password2" type="password" name="password2"
+			placeholder="********" required="required"
+			onchange="this.setCustomValidity('')"> <br>
+		<label
+			for="see">show password</label> <input id="see" type="checkbox" name="see"
+			onclick="showPassword()" id="check"> <br>
+
+		<button type="submit" class="submit">register</button>
+		<p>
+			Already have an account? <br> <a href="Login.html">Login</a>
+		</p>
+	</form>
+	<script>
+		let form = document.getElementById("form");
+		form.addEventListener("submit", handleSubmit)
+
+		function handleSubmit(event) {
+			if (!validatePassword())
+				event.preventDefault()
+		}
+
+		function validatePassword() {
+			let p = document.getElementById("password");
+			let p2 = document.getElementById("password2");
+			let passwordErrorMessage = document
+					.getElementById("passwordErrorMessage")
+			if (p.value.length < 8) {
+				p.setCustomValidity("password is too short")
+				return false;
+			}
+			if (p.value.length > 16) {
+				p.setCustomValidity("password is too long")
+				return false;
+			}
+			if (p.value !== p2.value) {
+				p2.setCustomValidity("passwords don't match")
+				return false;
+			}
+			return true;
+		}
+
+		function showPassword() {
+			let input = document.getElementById("password");
+			let type = document.getElementById("see").checked ? "text"
+					: "password";
+			input.setAttribute("type", type);
+			input = document.getElementById("password2");
+			type = document.getElementById("see").checked ? "text"
+					: "password";
+			input.setAttribute("type", type);
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Login</title>
+<style>
+html, body {
+	height: 100%;
+	margin: 0;
+}
+
+body {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+form {
+	border: 2px solid black;
+	padding: 2rem;
+}
+
+.submit {
+	display: block;
+	margin: 1rem auto;
+	padding: 0.2rem;
+}
+
+.error {
+	display: block;
+	font-size: 0.7rem;
+	color: red;
+}
+
+.notVisible {
+	display: none
+}
+</style>
+</head>
+<body>
+	<form id="form" action="login" method="post">
+		<label for="userName">username</label> <br> <input id="login"
+			type="text" name="userName" placeholder="Cool_Dude"
+			onchange="this.setCustomValidity('')"> <br> <span
+			id="loginError" class="error notVisible">please enter login
+			like example-email@example.domain.com</span> <label for="password">password</label><br>
+		<input id="password" type="password" name="password"
+			placeholder="********" onchange="this.setCustomValidity('')">
+		<br> <label for="see">show password</label> <input
+			type="checkbox" name="see" onclick="showPassword()" id="check"><br>
+		<button type="submit" class="submit">login</button>
+		<p>
+			Don't have an account? <br> <a href="Register.html">Register</a>
+		</p>
+	</form>
+
+	<script>
+		window.addEventListener("load", () => {			
+			let form = document.getElementById("form");
+			form.addEventListener("submit", handleSubmit)
+		})
+
+		function handleSubmit(event) {
+			 if (!validatePassword())
+				event.preventDefault()
+		}
+
+		function validatePassword() {
+			let p = document.getElementById("password");
+			let passwordErrorMessage = document
+					.getElementById("passwordErrorMessage")
+			if (p.value.length < 8) {
+				p.setCustomValidity("password is too short")
+				return false;
+			}
+			if (p.value.length > 16) {
+				p.setCustomValidity("password is too long")
+				return false;
+			}
+			return true;
+		}
+
+		function showPassword() {
+			input = document.getElementById("password");
+			let type = document.getElementById("check").checked ? "text"
+					: "password";
+			input.setAttribute("type", type);
+		}
+	</script>
+</body>
+</html>
